@@ -6,5 +6,5 @@ L1ghtSab3r is a framework aimed to exploit Continuous Integration systems.
 
 ## Contributors
 
- - Emmanuel Adewale
- - Sarah Swad
+ - @PabloPotat0
+ - @Th3QuantumJ3d1

@@ -10,8 +10,15 @@
 
 from cmd import Cmd
 import os
-from modules import travis
-from modules import gitlab
+from common import modules
+
+
+try:
+    import gnureadline
+    import sys
+    sys.modules['readline'] = gnureadline
+except ImportError:
+    pass
 
 banner = """
    _     __  _____ _    _ _______ _____         ____ ____  _____  
@@ -44,28 +51,12 @@ class color:
     LOGGING = '\33[34m'
 
 
-
-class Module(Cmd):
-    prompt = ""
-
-    def __init__(self, args):
-        Cmd.__init__(self)
-        self.prompt = args
-    
-    def do_back(self, args):
-        "Exit the module"
-        return True
-
-    def do_info(self, args):
-        "Give info about module"
-        print("info")
-
-
 class Terminal(Cmd):
     prompt = "(L1GHTSAB3R) >>> "
     targets = []
     listerners = []
     loadedModule = None
+    SETOPTIONS = ['target', 'module']
 
     def do_exit(self, args):
         "Exit the framework"
@@ -98,8 +89,11 @@ class Terminal(Cmd):
                 print(target)
 
     def do_set(self, args):
-        """Add a target
-        set target [target_link]"""
+        """Add a target/module
+        set target [target_link]
+        set target github.com/<username>/<repo>
+        set module travis/enum"""
+
         arg = args.split()
         if arg[0] == "target":
             self.targets.append(arg[1])
@@ -110,10 +104,18 @@ class Terminal(Cmd):
                 print(self.loadedModule)
                 #Change the prompt
                 newPrompt = self.prompt[:-5] + " [" + color.RED + arg[1] + color.END + "]  >>> " # <----- Terrible way
-                moduleTerm = Module(newPrompt)
-                moduleTerm.cmdloop()
+                genModule = modules.Module(newPrompt, self.loadedModule)
+                genModule.cmdloop()
             else:
                 print("Module doesn't exit")
+
+    # TODO: DONT;t work
+    def complete_set(self, text, line, begidx, endidx):
+        if not text:
+            completions = self.SETOPTIONS[:]
+
+        return completions
+        
 
 
     def do_unset(self, args):
@@ -142,7 +144,7 @@ class Terminal(Cmd):
 def welcome():
     print(banner)
     print("Welcome!!! Maybe the force be with you")
-    # print("Created by PabloPotat0 & ")
+    print("Created by PabloPotat0 & Th3QuantumJ3d1")
     print("CI Exploitation framework")
 
 def main():
