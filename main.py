@@ -38,6 +38,8 @@ banner = """
 # 5) push commit changes, and submit pull request
 # 6) Listen for incoming messages.
 
+
+
 class color:
     HEADER = '\033[95m'
     IMPORTANT = '\33[35m'
@@ -128,6 +130,7 @@ class Terminal(Cmd):
     def do_interact(self, args):
         "Interact with targets"
 
+    # TODO: filter out some useless directory
     def printModules(self):
         file  = os.walk("./modules")
         for dir, dirs, files in file:
@@ -143,9 +146,10 @@ class Terminal(Cmd):
 
 def welcome():
     print(banner)
-    print("Welcome!!! Maybe the force be with you")
+    print("Welcome!!! May the force be with you")
     print("Created by PabloPotat0 & Th3QuantumJ3d1")
     print("CI Exploitation framework")
+
 
 def main():
     welcome()
