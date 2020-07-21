@@ -1,6 +1,17 @@
-from cmd import Cmd
 
-class Module(Cmd):
-    prompt = ""
-    def __init__(self, args):
-        self.prompt = "alfjal"
+class Module:
+
+    # def __init__(self):
+    #     print("In Gitlab ENUM MOdule")
+    #     # Cmd.__init__(self)
+    #     # self.prompt = args
+    def info(self):
+        "Give info about module"
+        print("This module will attempt to return a reverse shell")
+
+
+    def exploit(self):
+        "Run the exploit"
+        print("Attackkkk")
+        # 1) fork all targets
+        # 2) clone forked targets

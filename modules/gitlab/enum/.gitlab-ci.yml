@@ -2,8 +2,6 @@ stages:
     - test  
 test:
     stage: test
-    tags:
-        - xfr
     script:
         - echo "test"
         - whoami

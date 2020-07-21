@@ -1,21 +1,16 @@
-from cmd import Cmd
+import main
 
-class Module(Cmd):
-    prompt = ""
+class Module:
 
-    def __init__(self, args):
-        Cmd.__init__(self)
-        self.prompt = args
+    def __init__(self):
+        self.type = "gitlab"
 
-    def do_back(self, args):
-        "Exit the module"
-        return True
-
-    def do_info(self, args):
+    def info(self):
         "Give info about module"
-        print("info")
+        print("This module will run env to get global environments")
 
 
-    def do_exploit(self, args):
+    def exploit(self, targets):
         "Run the exploit"
         print("Attackkkk")
+        print("Target location: ", targets)
