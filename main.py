@@ -11,6 +11,7 @@
 from cmd import Cmd
 import os
 from common import modules
+import gitlab
 
 
 try:
@@ -38,7 +39,12 @@ banner = """
 # 5) push commit changes, and submit pull request
 # 6) Listen for incoming messages.
 
+#TODO: Ask if they are using a custom gitlab instance
 
+GITHUB_TOKEN = ""
+GITLAB_TOKEN = "w_z7Ae4xvggSU3wLjizB"
+CUSTOM_GITLAB = "http://gitlab.example.com"
+GITLAB_USERNAME = "test"
 
 class color:
     HEADER = '\033[95m'
@@ -55,10 +61,14 @@ class color:
 
 class Terminal(Cmd):
     prompt = "(L1GHTSAB3R) >>> "
-    targets = []
+    targets = ["root/ci-test"]
     listerners = []
     loadedModule = None
     SETOPTIONS = ['target', 'module']
+
+    def __init__(self):
+        Cmd.__init__(self)
+        self.installPath = os.getcwd()
 
     def do_exit(self, args):
         "Exit the framework"
@@ -93,7 +103,7 @@ class Terminal(Cmd):
     def do_set(self, args):
         """Add a target/module
         set target [target_link]
-        set target github.com/<username>/<repo>
+        set target <namespace>/<projectname>
         set module travis/enum"""
 
         arg = args.split()
@@ -105,8 +115,7 @@ class Terminal(Cmd):
                 self.loadedModule = arg[1]
                 print(self.loadedModule)
                 #Change the prompt
-                newPrompt = self.prompt[:-5] + " [" + color.RED + arg[1] + color.END + "]  >>> " # <----- Terrible way
-                genModule = modules.Module(newPrompt, self.loadedModule)
+                genModule = modules.ModuleMenu(self.loadedModule, self.installPath)
                 genModule.cmdloop()
             else:
                 print("Module doesn't exit")
@@ -117,8 +126,6 @@ class Terminal(Cmd):
             completions = self.SETOPTIONS[:]
 
         return completions
-        
-
 
     def do_unset(self, args):
         """Remove target
