@@ -1,6 +1,14 @@
 # L1ghtSab3r
 
-L1ghtSab3r is a framework aimed to exploit Continuous Integration systems.
+L1ghtSab3r is a framework aimed to exploit Continuous Integration systems. 
+
+Here are the CI Server we can attack:
+- gitlab(.gitlab-ci.yml)
+- travis(.travis.yml)
+
+Coming soon:
+- circi-ci
+- jenkens
 
 ## Structure
 During our research, we started off by testing our tool on github but we realized that doing so violate the CFAA. so we decided to 

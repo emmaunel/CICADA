@@ -9,10 +9,7 @@ from git import Repo
 
 
 class ModuleMenu(Cmd):
-    prompt = ""
-    ## Use this to get different info??
-    loadedModule = None
-    
+    prompt = ""    
 
     def __init__(self,moduleName, installPath):
         Cmd.__init__(self)
@@ -22,7 +19,7 @@ class ModuleMenu(Cmd):
         self.installPath = installPath
         self.module = None
         self.forked = None
-        self.prompt = "(L1GHTSAB3R) [" + main.color.RED + self.moduleName + main.color.END + "] >>> "
+        self.prompt = "(CICADA) [" + main.color.RED + self.moduleName + main.color.END + "] >>> "
         # Create module object
         self.loadModule(self.moduleName)
         
@@ -87,6 +84,7 @@ class ModuleMenu(Cmd):
             projectId = project.get_id()
             # Attempt to fork, if forked, stop
             try:
+                print("Forking.......")
                 self.forked = project.forks.create(projectId)
             except Exception:
                 print(target + " already forked")
@@ -96,6 +94,7 @@ class ModuleMenu(Cmd):
             url = self.forked.__dict__.get('_attrs')['http_url_to_repo']
 
             try:
+                print("Cloning....")
                 git.Git(self.installPath + "/repo/").clone(url)
             except Exception:
                 print("Already cloned")
