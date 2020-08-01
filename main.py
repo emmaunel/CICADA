@@ -61,7 +61,7 @@ class color:
 
 class Terminal(Cmd):
     prompt = "(CICADA) >>> "
-    targets = ["root/ci-test"]
+    targets = ["root/xfr-demo"]
     listerners = []
     loadedModule = None
     SETOPTIONS = ['target', 'module']

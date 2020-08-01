@@ -1,6 +1,6 @@
-# L1ghtSab3r
+# CICADA
 
-L1ghtSab3r is a framework aimed to exploit Continuous Integration systems. 
+Cicada is a framework aimed to exploit Continuous Integration systems. 
 
 Here are the CI Server we can attack:
 - gitlab(.gitlab-ci.yml)
@@ -9,6 +9,15 @@ Here are the CI Server we can attack:
 Coming soon:
 - circi-ci
 - jenkens
+
+## How it works
+```
+- Fork the project
+- clone it to your local machine
+- copies malicious CI file to repo
+- Commits and push
+- Runs the CI file on the server
+```
 
 ## Structure
 During our research, we started off by testing our tool on github but we realized that doing so violate the CFAA. so we decided to 

