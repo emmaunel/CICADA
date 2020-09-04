@@ -121,4 +121,5 @@ class ModuleMenu(Cmd):
 
     def startListerner(self, port):
         # Find a better way for listerner
+        # Make a python socket for this
         os.system("nc -lv " + port)
