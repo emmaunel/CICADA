@@ -2,7 +2,7 @@
 
 Cicada is a framework aimed to exploit Continuous Integration systems. 
 
-Here are the CI Server we can attack:
+Here are the CI Servers this too can be used to attack:
 - gitlab(.gitlab-ci.yml)
 - travis(.travis.yml)
 
@@ -20,7 +20,7 @@ Coming soon:
 ```
 
 ## Structure
-During our research, we started off by testing our tool on github but we realized that doing so violate the CFAA. so we decided to 
+During our research, we started off by testing our tool on github but we realized that doing so would violate the CFAA. So we decided to 
 setup a gitlab instance and test it there. 
 We broke up the modules into the types of CI servers like travis, circle-ci and so on. This method helped us know exactly what server we plan to attack. Inside of each CI server folder, we broke it down to the exact type of attack like enumeration which would contain the malicious ci file. Here's a visual of the folder structure.
 
@@ -53,7 +53,7 @@ Can be found in the modules folder.
 
 
 ## Config
-Since github and gitlab are different platorm, you would need to get individual tokens from them. 
+Since github and gitlab are different platorms, you would need to get individual tokens from them. 
 
 ```
 GITHUB_TOKEN = "" # Create one at https://github.com/settings/tokens
@@ -71,4 +71,4 @@ $ ./main.py
 
 ## Contributors
  - @PabloPotat0
- - @Th3QuantumJ3d1
+ - @grimlyreaper
