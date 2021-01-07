@@ -4,6 +4,7 @@ import gitlab
 import imp
 import os
 import git
+import socket
 import thread
 from shutil import copyfile
 from git import Repo
@@ -122,4 +123,13 @@ class ModuleMenu(Cmd):
     def startListerner(self, port):
         # Find a better way for listerner
         # Make a python socket for this
-        os.system("nc -lv " + port)
+        listener_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            listener_sock.bind(('0.0.0.0', port))
+        except:
+            print("Couldn't bind to that port. :(")
+
+        listener_sock.listen(1)
+        results = listener_sock.recv(1024).decode()
+        print(results)
+        # os.system("nc -lv " + port)
